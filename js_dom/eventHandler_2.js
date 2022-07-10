@@ -29,6 +29,34 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 // input창에서 가능한 event들
   const inputTxt1 = document.getElementById("txt1");
+
   inputTxt1.addEventListener("keyup", (event) =>{
     console.log(event.key);
   })
+
+// focus / blur
+  // focus : input 창에 focus될 때.
+  // blur는 input창에 focus를 잃을 때 발생
+  inputTxt1.addEventListener("focus", () =>{
+    inputTxt1.style.backgroundColor = "rgba(255,0,0,0.2)";
+  });
+
+  inputTxt1.addEventListener("blur", () =>{
+    inputTxt1.style.backgroundColor = null;
+  });
+
+  const box = document.getElementById("box");
+  const circle = document.getElementById("circle");
+  // 원래 box안에서 마우스 따라서 원이 움직여야하는데, 작동이 안된다.
+  box.addEventListener("mousemove", event =>{
+    circle.style.top = `${event.clinetY}px`;
+    circle.style.left = `${event.clinetX}px`;
+  });
+
+// window resize event
+  window.addEventListener("resize", ()=>{
+    document.body.innerText = `현재 창 크기는 ${window.innerWidth} x ${window.innerHeight}`;
+  });
+
+// 다양한 event는 아래 참고
+// https://www.w3schools.com/jsref/dom_obj_event.asp
