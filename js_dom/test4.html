@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="module" src="eventDelegation_4.js"></script>
+  <style>
+    .on{
+      width: 100px;
+      height: 36px;
+      background-color: red;
+    }
+  </style>
+  
+  <div id="box">
+    <ul id="list">
+      <li id="red"><a href="#">red</a></li>
+      <li id="blue"><a href="#">blue</a></li>
+      <li id="green"><a href="#">green</a></li>
+      <li id="pink"><a href="#">pink</a></li>
+    </ul>
+  </div>
+  <script>
+    const list = document.getElementById("list");
+    const colors = list.children;
+
+    function clickHandler(event){
+      console.log("target", event.target);
+      // 이벤트를 발생시키는 요소
+      console.log("currentTarget", event.currentTarget);
+      // 이벤트 핸들러가 등록된 요소. 여기선 <ul id="list">
+
+      for (c of colors){
+        let target = event.target;
+        if(target.tagName === 'A'){
+          target = target.parentElement;
+        } else if(target === event.currentTarget){
+          return;// 지금 선택된 것 === <ul id="list"> 
+        }
+        c.classList.remove("on");
+        // 모든 함수에 on class 제거
+      }
+      event.target.classList.add("on");
+      // 클릭된 함수에 on class 추가
+    }
+
+    // document.getElementById("red").addEventListener("click", clickHandler);
+    // document.getElementById("blue").addEventListener("click", clickHandler);
+    // document.getElementById("green").addEventListener("click", clickHandler);
+    // document.getElementById("pink").addEventListener("click", clickHandler);
+    document.getElementById("list").addEventListener("click", clickHandler);
+    // <ul id="list">로 event delegate(위임) 받으면 리스 목록 많아지더라도
+    // 한번에 처리할 수 있고, 코드 더하지 않아도 된다.
+  </script>
+</body>
+</html>
